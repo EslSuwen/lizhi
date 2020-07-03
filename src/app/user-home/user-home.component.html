@@ -1,0 +1,62 @@
+<section class="view intro-2" (click)="showVideo()">
+  <div class="full-bg-img mask rgba-black-light">
+    <div class="container flex-center">
+      <div class="d-flex align-items-center content-height w-100">
+        <div class="row flex-center mt-3 w-100">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div mdbModal #vFrame="mdbModal" class="modal fade" id="frameModalTop" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <!--Content-->
+    <div class="modal-content">
+
+      <!--Body-->
+      <div class="modal-body mb-0 p-0">
+
+        <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+          <iframe class="embed-responsive-item"
+                  src="//player.bilibili.com/player.html?aid=926165460&bvid=BV1pT4y177B8&cid=206674870&page=1"
+                  scrolling="no" border="0" frameborder="no" framespacing="0"
+                  allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center flex-column flex-md-row">
+        <span class="mr-4">荔枝俪之!</span>
+        <div>
+          <a type="button" mdbBtn floating="true" size="sm" color="fb" class="waves-light" mdbWavesEffect>
+            <mdb-icon fab icon="facebook-f"></mdb-icon>
+          </a>
+          <!--Twitter-->
+          <a type="button" mdbBtn floating="true" size="sm" color="tw" class="waves-light" mdbWavesEffect>
+            <mdb-icon fab icon="twitter"></mdb-icon>
+          </a>
+          <!--Google +-->
+          <a type="button" mdbBtn floating="true" size="sm" color="gplus" class="waves-light" mdbWavesEffect>
+            <mdb-icon fab icon="google-plus"></mdb-icon>
+          </a>
+          <!--Linkedin-->
+          <a type="button" mdbBtn floating="true" size="sm" color="ins" class="waves-light" mdbWavesEffect>
+            <mdb-icon fab icon="linkedin-in"></mdb-icon>
+          </a>
+        </div>
+        <button type="button" mdbBtn color="primary" outline="true" class="ml-4 waves-light" mdbWavesEffect
+                data-dismiss="modal"
+                (click)="vFrame.hide()">Close
+        </button>
+
+      </div>
+
+    </div>
+    <!--/.Content-->
+
+  </div>
+</div>

@@ -1,0 +1,95 @@
+<section class="view intro-2" (click)="showAuth()">
+  <div class="full-bg-img mask rgba-black-light">
+    <div class="container flex-center">
+      <div class="d-flex align-items-center content-height w-100">
+        <div class="row flex-center mt-3 w-100">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div mdbModal #authFrame="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">需要验证你的身份</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <mdb-icon fas icon="bell" size="4x" class="animated rotateIn mb-4"></mdb-icon>
+        <p>请输入你电话的后4位尾号：</p>
+        <div class="md-form">
+          <input mdbInput [(ngModel)]="numModel" type="text" class="form-control" min="4" max="4">
+          <mdb-error *ngIf="numFC.invalid">填写合法值!</mdb-error>
+        </div>
+      </div>
+
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a (click)="validateNum()" mdbBtn color="primary" class="waves-light"
+           mdbWavesEffect>Yes</a>
+        <a type="button" mdbBtn color="primary" outline="true" class="waves-light" mdbWavesEffect data-dismiss="modal"
+           (click)="authFrame.hide()">No</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<div mdbModal #failFrame="mdbModal" class="modal fade top" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">似乎你未被邀请访问该网站?</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a (click)="failFrame.hide();authFrame.show();" mdbBtn color="danger" outline="true" class="waves-effect"
+           mdbWavesEffect>retry</a>
+        <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal"
+           (click)="failFrame.hide()">No</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<div mdbModal #passFrame="mdbModal" class="modal fade top" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-success" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">验证成功！</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <mdb-icon fas icon="check-square" size="4x" class="animated rotateIn"></mdb-icon>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" mdbBtn color="success" class="waves-effect" mdbWavesEffect data-dismiss="modal"
+           (click)="passFrame.hide();this.router.navigate(['/home']);">OK</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+

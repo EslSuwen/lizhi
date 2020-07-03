@@ -1,0 +1,33 @@
+.intro-header {
+  height: unset !important;
+}
+
+.intro-2 {
+  background: url("../../assets/img/1.jpg") center center;
+  background-size: cover;
+}
+
+.view {
+  height: 100vh !important;
+}
+
+
+.rgba-gradient .full-bg-img {
+  background: linear-gradient(45deg, rgba(83, 125, 210, 0.4), rgba(178, 30, 123, 0.4) 100%);
+}
+
+.full-bg-img {
+  height: 100%;
+}
+
+.card {
+  background-color: rgba(129, 166, 247, 0.4);
+}
+
+
+.r-input {
+  padding: 30px;
+}
+
+
+

@@ -1,0 +1,222 @@
+<div class="col-lg-5 mt-5 mx-auto animated fadeInRight">
+  <mdb-card cascade="true" narrower="true">
+    <!--Card image-->
+    <div
+      class="view view-cascade gradient-card-header amy-crisp-gradient narrower z-depth-2 rounded-lg  py-2 m-3 mt-n4 text-center">
+      <div class="m-3">
+        <h4 class="white-text">预约待审核情况一览</h4>
+      </div>
+    </div>
+    <!--/Card image-->
+    <table class="table table-striped table-responsive-md btn-table">
+      <thead>
+      <tr>
+        <th>序号</th>
+        <th>预约人姓名</th>
+        <th>日期</th>
+        <th>实验室</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let each of auditData;let i = index" (click)="audit(each.no)">
+        <td>{{i + 1}}</td>
+        <td>{{each.applyName}}</td>
+        <td>{{each.date}}</td>
+        <td>{{each.labName}}</td>
+        <td>
+          <button type="button" class="btn btn-indigo btn-sm m-0">详情</button>
+        </td>
+        <!--/.Content-->
+      </tr>
+      </tbody>
+    </table>
+  </mdb-card>
+</div>
+<div mdbModal #auditModal="mdbModal" class="modal mt-5 fade right"
+     id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content ">
+      <!--Body-->
+      <mdb-card cascade="true" narrower="true">
+        <!--Card image-->
+        <div
+          class="view view-cascade gradient-card-header ripe-malinka-gradient narrower z-depth-2 rounded-lg  py-2 m-3 mt-n4 text-center">
+          <div class="m-3">
+            <h4 class="white-text">预约详情</h4>
+          </div>
+        </div>
+        <!--/Card image-->
+        <mdb-card-body>
+          <!--Body-->
+          <div class="row">
+            <!-- 校区 -->
+            <div class="col">
+              <label for="formCampus">校区</label>
+              <input type="text" id="formCampus" class="form-control" disabled [(ngModel)]="auditModel.campus">
+            </div>
+            <!-- 实验室 -->
+            <div class="col">
+              <label for="formLabName">实验室</label>
+              <input type="text" id="formLabName" class="form-control" disabled [(ngModel)]="auditModel.labName">
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <!--设备-->
+            <div class="col">
+              <label for="formDeviceName">设备</label>
+              <input type="text" id="formDeviceName" class="form-control" disabled [(ngModel)]="auditModel.deviceName">
+            </div>
+            <!--设备数量-->
+            <div class="col">
+              <label for="formDeviceNum">设备数量</label>
+              <input type="text" id="formDeviceNum" class="form-control" disabled [(ngModel)]="auditModel.deviceNum">
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <!--导师-->
+            <div class="col">
+              <label for="formTutor">导师</label>
+              <input type="text" id="formTutor" class="form-control" disabled [(ngModel)]="auditModel.tutor">
+            </div>
+            <!--日期-->
+            <div class="col">
+              <div class="md-form">
+                <input type="date" id="formDate" class="form-control" disabled [(ngModel)]="auditModel.date">
+                <label for="formDate">日期</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!--开始时间-->
+            <div class="col">
+              <div class="md-form">
+                <input type="time" id="formStart" class="form-control" disabled [(ngModel)]="auditModel.startTime">
+                <label for="formStart">开始时间</label>
+              </div>
+            </div>
+            <!--结束时间-->
+            <div class="col">
+              <div class="md-form">
+                <input type="time" id="formOver" class="form-control" disabled [(ngModel)]="auditModel.overTime">
+                <label for="formOver">结束时间</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!--备注-->
+            <div class="col z-depth-1 my-4 ">
+              <div class="md-form px">
+                <mdb-icon fas icon="pencil-alt" class="prefix "></mdb-icon>
+                <textarea type="text" id="formPS" class="md-textarea form-control" disabled [(ngModel)]="auditModel.ps"
+                          mdbInput></textarea>
+                <label for="formPS">备注</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Regular usage -->
+          <!-- <re-captcha (resolved)="resolved($event)" siteKey="YOUR_SITE_KEY"></re-captcha> -->
+
+          <div class="text-center">
+            <button mdbBtn class="btn young-passion-gradient text-white" mdbWavesEffect
+                    (click)="auditModal.hide();confirmFailModal.show()">拒绝
+            </button>
+            <button mdbBtn class="btn blue-gradient" mdbWavesEffect
+                    (click)="auditModal.hide();confirmPassModal.show()">通过
+            </button>
+            <button mdbBtn class="btn peach-gradient" mdbWavesEffect (click)="auditModal.hide();">关闭
+            </button>
+          </div>
+        </mdb-card-body>
+
+      </mdb-card>
+      <!--Form with header-->
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<div mdbModal #failModal="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p *ngIf="feedback==-1" class="heading">原密码输入错误！</p>
+        <p *ngIf="feedback==0" class="heading">操作失败！</p>
+        <p *ngIf="feedback==2" class="heading">意料之外的错误！</p>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" mdbBtn color="danger" outline="true" class="waves-light" mdbWavesEffect data-dismiss="modal"
+           (click)="failModal.hide()">确定</a>
+      </div>
+      <strong>若一直出错请联系管理员</strong>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<div mdbModal #successModal="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-success" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">操作成功！</p>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" mdbBtn color="success" outline="true" class="waves-light" mdbWavesEffect data-dismiss="modal"
+           (click)="successModal.hide()">确定</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<div mdbModal #confirmFailModal="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">请确定拒绝该预约！</p>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" mdbBtn color="danger" outline="true" class="waves-light" mdbWavesEffect data-dismiss="modal"
+           (click)="failAudit();confirmFailModal.hide();successModal.show();">确定</a>
+        <a type="button" mdbBtn color="danger" outline="true" class="waves-light" mdbWavesEffect data-dismiss="modal"
+           (click)="confirmFailModal.hide()">关闭</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<div mdbModal #confirmPassModal="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">请确定同意该预约！</p>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" mdbBtn color="danger" outline="true" class="waves-light" mdbWavesEffect data-dismiss="modal"
+           (click)="passAudit();confirmPassModal.hide();successModal.show();">确定</a>
+        <a type="button" mdbBtn color="danger" outline="true" class="waves-light" mdbWavesEffect data-dismiss="modal"
+           (click)="confirmPassModal.hide()">关闭</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
