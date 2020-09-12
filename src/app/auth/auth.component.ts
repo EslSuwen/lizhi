@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ModalComponent} from "../modal/modal.component";
-import {FormControl, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import {ModalComponent} from '../modal/modal.component';
+import {FormControl, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -23,7 +23,7 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
     this.numFC = new FormControl('numFC',
-      [Validators.required, Validators.min(0), Validators.max(100)])
+      [Validators.required, Validators.min(0), Validators.max(100)]);
     setTimeout(() => this.authFrame.show(), 300);
   }
 
